@@ -1,6 +1,6 @@
-export default function Square({value, onSquareClickHendler}) {    
+export default function Square({value, onSquareClickHаndler}) {    
     return (
-        <button className="tic-button" onClick={onSquareClickHendler}>
+        <button className="tic-button" onClick={onSquareClickHаndler}>
             {value}
         </button>
     );
