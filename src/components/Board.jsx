@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Square from "./Square.jsx";
+import Status from "./Status.jsx";
 
 export default function Board() {
     const [squareValues, setsquareValues] = useState(Array(9).fill(null));
@@ -16,12 +17,15 @@ export default function Board() {
 
     };
 
-    const winner = showWinner(squareValues)
-    const gameStatus = winner ? `Winner is ${winner}` : `Next is ${xIsNext ? 'X' : 'O'}`;
+    const winner = showWinner(squareValues);
+    const gameOwer = squareValues.every(v => v ? true : false);
+    const gameStatus = winner ? `Winner is ${winner}`
+        : gameOwer ? 'Game over no winner'
+            : `Next is ${xIsNext ? 'X' : 'O'}`;
 
     return (
         <div className="board-container">
-            <div className="status">{gameStatus}</div>
+            <Status value={gameStatus} />
             <div className="board">
                 {squareValues.map((v, i) => <Square
                     key={i}

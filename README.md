@@ -8,3 +8,4 @@
 - [x] Add next player state and winner detection
 - [x] Add game status message
 - [x] Update CSS 
+- [x] Add game status component and draw logic
