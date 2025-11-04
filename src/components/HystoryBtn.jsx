@@ -1,7 +1,7 @@
 export default function HystoryBtn({ value, onClickHandler }) {
     return (
         <>
-            <li><button onClick={onClickHandler}>{value}</button></li>
+            <li><button className="btn" onClick={onClickHandler}>{value}</button></li>
         </>
     );
 };

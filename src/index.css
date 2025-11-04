@@ -120,13 +120,20 @@ h1 {
     transform: scale(0.98);
     /* Press down */
   }
+
+  @media (max-width:650px) {
+  .tic-button {
+    font-size: 2.5rem;
+  }
+  
+}
 }
 /* end components custom css */
 
 /* start components reset button css */
 @layer utilities {
 
-  .restart-btn {
+  .restart-btn, .btn {
     padding: 0.5rem 1rem;
     border: 2px solid #ccc;
     border-radius: 4px;
@@ -152,8 +159,27 @@ h1 {
     }
   }
 
-  .restart-btn:enabled:hover {
+  .restart-btn:enabled:hover, .btn:hover {
     background: #e0e0e0;
   }
 }
 /* end components reset button css */
+
+.history-list {
+ display: flex;
+ flex-direction: column;
+ gap: 4px;
+}
+
+.btn {
+  min-width: 150px;
+}
+
+@media (max-width:650px) {
+  .main-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+}
+

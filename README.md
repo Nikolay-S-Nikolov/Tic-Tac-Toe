@@ -11,3 +11,4 @@
 - [x] Add game status component and draw logic
 - [x] Add RestartButton component, functionality and css
 - [x] Implement history tracking
+- [x] Improve styling and structure
