@@ -47,7 +47,7 @@ h1 {
   }
 }
 
-.status{
+.status {
   margin-bottom: 1rem;
   font-size: 1.5rem;
   font-weight: 500;
@@ -107,5 +107,39 @@ h1 {
     /* Press down */
   }
 }
-
 /* end components custom css */
+
+/* start components reset button css */
+@layer utilities {
+
+  .restart-btn {
+    padding: 0.5rem 1rem;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+  }
+
+  .restart-btn:enabled {
+    animation: shake 0.7s ease-in-out;
+  }
+
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+
+    25% {
+      transform: translateX(-5px);
+    }
+
+    75% {
+      transform: translateX(5px);
+    }
+  }
+
+  .restart-btn:enabled:hover {
+    background: #e0e0e0;
+  }
+}
+/* end components reset button css */

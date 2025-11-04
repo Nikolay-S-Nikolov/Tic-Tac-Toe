@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Square from "./Square.jsx";
 import Status from "./Status.jsx";
+import RestartButton from "./RestartButton.jsx";
 
 export default function Board() {
     const [squareValues, setsquareValues] = useState(Array(9).fill(null));
@@ -14,7 +15,10 @@ export default function Board() {
         oldsquareValues[index] = xIsNext ? 'X' : 'O';
         setsquareValues(oldsquareValues);
         setXIsNext(next => !next);
+    };
 
+    const onRestartHandler = () => {
+        setsquareValues(Array(9).fill(null));
     };
 
     const winner = showWinner(squareValues);
@@ -22,7 +26,7 @@ export default function Board() {
     const gameStatus = winner ? `Winner is ${winner}`
         : gameOwer ? 'Game over no winner'
             : `Next is ${xIsNext ? 'X' : 'O'}`;
-
+            
     return (
         <div className="board-container">
             <Status value={gameStatus} />
@@ -34,6 +38,7 @@ export default function Board() {
                 />)
                 }
             </div>
+            <RestartButton endGame={(!gameOwer && !winner)} restartHendler={onRestartHandler} />
         </div>
     );
 };
