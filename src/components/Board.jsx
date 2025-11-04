@@ -22,7 +22,7 @@ export default function Board() {
     return (
         <div className="board-container">
             <div className="status">{gameStatus}</div>
-            <div className="grid">
+            <div className="board">
                 {squareValues.map((v, i) => <Square
                     key={i}
                     onSquareClickHаndler={() => onClickHаndler(i)}
