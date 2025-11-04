@@ -6,21 +6,22 @@ export default function Board() {
     const [xIsNext, setXIsNext] = useState(true);
 
     const onClickHаndler = (index) => {
-        if (squareValues[index]) return;
-        if (showWinner(squareValues)) return;
+        if (squareValues[index] || showWinner(squareValues)) return;
+
         const oldsquareValues = squareValues.slice();
 
         oldsquareValues[index] = xIsNext ? 'X' : 'O';
         setsquareValues(oldsquareValues);
-        if (showWinner(oldsquareValues)) {
-            console.log(`Winner is ${showWinner(oldsquareValues)}`)
-        };
         setXIsNext(next => !next);
 
     };
 
+    const winner = showWinner(squareValues)
+    const gameStatus = winner ? `Winner is ${winner}` : `Next is ${xIsNext ? 'X' : 'O'}`;
+
     return (
         <div className="board-container">
+            <div className="status">{gameStatus}</div>
             <div className="grid">
                 {squareValues.map((v, i) => <Square
                     key={i}
