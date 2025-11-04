@@ -3,22 +3,15 @@ import Square from "./Square.jsx";
 import Status from "./Status.jsx";
 import RestartButton from "./RestartButton.jsx";
 
-export default function Board() {
-    const [squareValues, setsquareValues] = useState(Array(9).fill(null));
-    const [xIsNext, setXIsNext] = useState(true);
+export default function Board({ xIsNext, squareValues, onPlay, onRestartHandler }) {
 
-    const onClickHаndler = (index) => {
+    const onClickHandler = (index) => {
         if (squareValues[index] || showWinner(squareValues)) return;
 
         const oldsquareValues = squareValues.slice();
 
         oldsquareValues[index] = xIsNext ? 'X' : 'O';
-        setsquareValues(oldsquareValues);
-        setXIsNext(next => !next);
-    };
-
-    const onRestartHandler = () => {
-        setsquareValues(Array(9).fill(null));
+        onPlay(oldsquareValues);
     };
 
     const winner = showWinner(squareValues);
@@ -26,14 +19,14 @@ export default function Board() {
     const gameStatus = winner ? `Winner is ${winner}`
         : gameOwer ? 'Game over no winner'
             : `Next is ${xIsNext ? 'X' : 'O'}`;
-            
+
     return (
         <div className="board-container">
             <Status value={gameStatus} />
             <div className="board">
                 {squareValues.map((v, i) => <Square
                     key={i}
-                    onSquareClickHаndler={() => onClickHаndler(i)}
+                    onSquareClickHandler={() => onClickHandler(i)}
                     value={v}
                 />)
                 }
