@@ -3,7 +3,7 @@ import HystoryBtn from "./HystoryBtn.jsx";
 export default function GameInfo({ moves, jumpToMoveHandler }) {
     return (
         <div className="game-info">
-            <div className="status"> Hystory</div>
+            <div className="status"> History</div>
             <ol className="history-list">
                 {moves.map((_, i) => <HystoryBtn
                     key={i}

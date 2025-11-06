@@ -18,7 +18,7 @@ export default function Board({ xIsNext, squareValues, onPlay, onRestartHandler 
     const gameOwer = squareValues.every(v => v ? true : false);
     const gameStatus = winner ? `Winner is ${winner}`
         : gameOwer ? 'Game over no winner'
-            : `Next is ${xIsNext ? 'X' : 'O'}`;
+            : `The next move is Player ${xIsNext ? 'X' : 'O'}`;
 
     return (
         <div className="board-container">
