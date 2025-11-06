@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Board from "./board.jsx";
+import Board from "./Board.jsx";
 import GameInfo from "./GameInfo.jsx";
 
 export default function Game() {
