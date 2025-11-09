@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Square from "./Square.jsx";
 import Status from "./Status.jsx";
 import RestartButton from "./RestartButton.jsx";

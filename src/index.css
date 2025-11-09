@@ -58,6 +58,7 @@ h1 {
 .main-container {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 2rem;
 }
 
@@ -67,7 +68,61 @@ h1 {
   align-items: center;
   gap: 1rem;
 }
+
 /* end main-container custom css */
+
+/* setup-container  custom css */
+
+.setup-container {
+  flex: 1 1 100%;
+}
+
+.initial-setup {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  align-items: center;
+  padding: 1.5rem;
+}
+
+.player-count,
+.starter-choice {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.initial-setup select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+}
+
+.initial-setup p {
+  margin: 0.5rem 0;
+}
+
+.initial-setup input[type="radio"] {
+  margin-right: 0.5rem;
+}
+
+.initial-setup label {
+  cursor: pointer;
+}
+
+@media (max-width: 650px) {
+  .setup-container {
+    width: 100%;
+    padding: 1rem;
+  }
+}
+
+/* end setup-container  custom css */
+
+
+
 /* board custom css */
 
 .board-container {
@@ -122,18 +177,20 @@ h1 {
   }
 
   @media (max-width:650px) {
-  .tic-button {
-    font-size: 2.5rem;
+    .tic-button {
+      font-size: 2.5rem;
+    }
+
   }
-  
 }
-}
+
 /* end components custom css */
 
 /* start components reset button css */
 @layer utilities {
 
-  .restart-btn, .btn {
+  .restart-btn,
+  .btn {
     padding: 0.5rem 1rem;
     border: 2px solid #ccc;
     border-radius: 4px;
@@ -145,6 +202,7 @@ h1 {
   }
 
   @keyframes shake {
+
     0%,
     100% {
       transform: translateX(0);
@@ -159,20 +217,22 @@ h1 {
     }
   }
 
-  .restart-btn:enabled:hover, .btn:hover {
+  .restart-btn:enabled:hover,
+  .btn:hover {
     background: #e0e0e0;
   }
 }
+
 /* end components reset button css */
 
 .history-list {
- display: flex;
- flex-direction: column;
- gap: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .btn {
-  min-width: 150px;
+  min-width: 200px;
 }
 
 @media (max-width:650px) {
@@ -180,6 +240,4 @@ h1 {
     flex-direction: column;
     align-items: center;
   }
-  
 }
-
