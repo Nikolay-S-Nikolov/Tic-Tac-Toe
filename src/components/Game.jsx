@@ -16,8 +16,6 @@ export default function Game() {
         setShowSetup(false);
         e.preventDefault();
         starter === 'X' ? setXIsNext(true) : setXIsNext(false)
-        console.log(playerCount, starter);
-
     }
 
     const onPlayHandler = (nextSquareValues) => {
@@ -36,7 +34,7 @@ export default function Game() {
 
     const jumpToMove = (idx) => {
         setCurrentMove(idx);
-        starter==='X'?setXIsNext(idx % 2 === 0):setXIsNext(!(idx % 2 === 0));
+        starter === 'X' ? setXIsNext(idx % 2 === 0) : setXIsNext(!(idx % 2 === 0));
     }
 
     return (
@@ -49,7 +47,14 @@ export default function Game() {
                 playerCount={playerCount}
             />}
             {!showSetup && <div className="main-container">
-                <Board xIsNext={xIsNext} squareValues={currentGameValue} onPlay={onPlayHandler} onRestartHandler={onRestart} />
+                <Board
+                    xIsNext={xIsNext}
+                    squareValues={currentGameValue}
+                    onPlay={onPlayHandler}
+                    onRestartHandler={onRestart}
+                    playerCount={playerCount}
+                    starter={starter}
+                />
                 <GameInfo moves={history} jumpToMoveHandler={jumpToMove} />
             </div>}
         </>

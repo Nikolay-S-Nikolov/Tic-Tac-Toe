@@ -1,8 +1,43 @@
 import Square from "./Square.jsx";
 import Status from "./Status.jsx";
 import RestartButton from "./RestartButton.jsx";
+import { useEffect } from "react";
 
-export default function Board({ xIsNext, squareValues, onPlay, onRestartHandler }) {
+export default function Board({
+    xIsNext,
+    squareValues,
+    onPlay,
+    onRestartHandler,
+    playerCount,
+    starter
+}) {
+
+    useEffect(() => {
+        if (playerCount === 1) {
+            const isPCsTurn = (starter === 'X' && !xIsNext) || (starter === 'O' && xIsNext);
+            if (isPCsTurn) {
+                const nextIdx = getRandomIndex(squareValues)
+                if (squareValues[nextIdx] || showWinner(squareValues)) return;
+
+                const oldsquareValues = squareValues.slice();
+                oldsquareValues[nextIdx] = xIsNext ? 'X' : 'O';
+
+                setTimeout(()=>onPlay(oldsquareValues),400);
+            }
+        }
+    }, [xIsNext, starter, playerCount, squareValues,onPlay])
+
+    function getRandomIndex(board) {
+        const nullIndices = board
+            .map((value, index) => value === null ? index : null)
+            .filter(index => index !== null);
+
+        if (nullIndices.length === 0) return null;
+
+        const randomIndex = Math.floor(Math.random() * nullIndices.length);
+        return nullIndices[randomIndex];
+    }
+
 
     const onClickHandler = (index) => {
         if (squareValues[index] || showWinner(squareValues)) return;
