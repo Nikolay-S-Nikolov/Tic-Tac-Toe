@@ -2,6 +2,7 @@ import Square from "./Square.jsx";
 import Status from "./Status.jsx";
 import RestartButton from "./RestartButton.jsx";
 import { useEffect } from "react";
+import getBestMove from "../utils/getBestMove.js";
 
 export default function Board({
     xIsNext,
@@ -9,23 +10,29 @@ export default function Board({
     onPlay,
     onRestartHandler,
     playerCount,
-    starter
+    starter,
+    difficulty
 }) {
 
     useEffect(() => {
         if (playerCount === 1) {
             const isPCsTurn = (starter === 'X' && !xIsNext) || (starter === 'O' && xIsNext);
+            const PCSymbol = xIsNext ? 'X' : 'O';
+            const humanSymbol = xIsNext ? 'O' : 'X';
             if (isPCsTurn) {
-                const nextIdx = getRandomIndex(squareValues)
+                const nextIdx = difficulty === 'hard'
+                    ? getBestMove(squareValues, PCSymbol, humanSymbol)
+                    : getRandomIndex(squareValues);
+
                 if (squareValues[nextIdx] || showWinner(squareValues)) return;
 
                 const oldsquareValues = squareValues.slice();
-                oldsquareValues[nextIdx] = xIsNext ? 'X' : 'O';
+                oldsquareValues[nextIdx] = PCSymbol;
 
-                setTimeout(()=>onPlay(oldsquareValues),400);
+                setTimeout(() => onPlay(oldsquareValues), 400);
             }
         }
-    }, [xIsNext, starter, playerCount, squareValues,onPlay])
+    }, [xIsNext, starter, playerCount, squareValues, onPlay, difficulty])
 
     function getRandomIndex(board) {
         const nullIndices = board

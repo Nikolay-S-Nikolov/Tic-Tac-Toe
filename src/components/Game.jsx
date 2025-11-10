@@ -10,6 +10,7 @@ export default function Game() {
     const [currentMove, setCurrentMove] = useState(0);
     const [playerCount, setPlayerCount] = useState(2);
     const [starter, setStarter] = useState('X');
+    const [difficulty, setDifficulty] = useState('easy');
     const currentGameValue = history[currentMove];
 
     const onInitialStartHandler = (e, playerCount, starter) => {
@@ -45,6 +46,8 @@ export default function Game() {
                 setStarter={setStarter}
                 starter={starter}
                 playerCount={playerCount}
+                difficulty={difficulty}
+                setDifficulty={setDifficulty}
             />}
             {!showSetup && <div className="main-container">
                 <Board
@@ -54,6 +57,7 @@ export default function Game() {
                     onRestartHandler={onRestart}
                     playerCount={playerCount}
                     starter={starter}
+                    difficulty={difficulty}
                 />
                 <GameInfo moves={history} jumpToMoveHandler={jumpToMove} />
             </div>}

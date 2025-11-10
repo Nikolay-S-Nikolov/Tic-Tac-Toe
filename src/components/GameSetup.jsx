@@ -1,13 +1,23 @@
+import { useState } from "react";
+import PCStrength from "./PCStrength.jsx";
+
 export default function GameSetup({
     onStartHandler,
     setPlayerCount,
     playerCount,
     setStarter,
-    starter
+    starter,
+    difficulty,
+    setDifficulty
 }) {
+    const [showPCStrength, setShowPCStrength] = useState(false);
 
     function onSetStarterChoice(e) {
-        setStarter(e.target.value)
+        setStarter(e.target.value);
+    }
+
+    function onCloseDifficultyHandler() {
+        setShowPCStrength(false)
     }
 
     return (
@@ -21,7 +31,10 @@ export default function GameSetup({
                         id="players"
                         name="players"
                         value={playerCount}
-                        onChange={(e) => setPlayerCount(Number(e.target.value))}
+                        onChange={(e) => {
+                            setPlayerCount(Number(e.target.value));
+                            setShowPCStrength(playerCount === 2 ? true : false);
+                        }}
                     >
                         <option value="1">1 Player (vs Computer)</option>
                         <option value="2">2 Players</option>
@@ -53,6 +66,11 @@ export default function GameSetup({
                 </div>
                 <button className="btn" type="submit">Start Game</button>
             </form>
+            {showPCStrength && <PCStrength
+                onClose={onCloseDifficultyHandler}
+                difficulty={difficulty}
+                setDifficulty={setDifficulty}
+            />}
         </div>
     );
 };
