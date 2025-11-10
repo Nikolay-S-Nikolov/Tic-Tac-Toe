@@ -13,7 +13,6 @@ export default function Board({
     starter,
     difficulty
 }) {
-
     useEffect(() => {
         if (playerCount === 1) {
             const isPCsTurn = (starter === 'X' && !xIsNext) || (starter === 'O' && xIsNext);
@@ -56,8 +55,9 @@ export default function Board({
     };
 
     const winner = showWinner(squareValues);
+    // const winner = gameWin ? gameWin.winner : null
     const gameOwer = squareValues.every(v => v ? true : false);
-    const gameStatus = winner ? `Winner is ${winner}`
+    const gameStatus = winner ? `Winner is ${winner.winner}`
         : gameOwer ? 'Game over no winner'
             : `The next move is Player ${xIsNext ? 'X' : 'O'}`;
 
@@ -68,6 +68,7 @@ export default function Board({
                 {squareValues.map((v, i) => <Square
                     key={i}
                     onSquareClickHandler={() => onClickHandler(i)}
+                    wining={winner ? winner.winLine.includes(i) : false}
                     value={v}
                 />)
                 }
@@ -91,7 +92,7 @@ function showWinner(arrayTicTac) {
 
     for (const [a, b, c] of winCombinations) {
         if ((arrayTicTac[a] && arrayTicTac[a] == arrayTicTac[b] && arrayTicTac[a] == arrayTicTac[c])) {
-            return arrayTicTac[a];
+            return { winner: arrayTicTac[a], winLine: [a, b, c] };
         };
     };
 
