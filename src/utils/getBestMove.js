@@ -5,7 +5,8 @@ export default function getBestMove(board, aiSymbol = 'O', humanSymbol = 'X') {
         [0, 4, 8], [2, 4, 6]
     ];
 
-  
+    const sides = [1, 3, 5, 7];
+
     const aiMoves = board
         .map((v, i) => v === aiSymbol ? i : null)
         .filter(i => i !== null);
@@ -31,6 +32,12 @@ export default function getBestMove(board, aiSymbol = 'O', humanSymbol = 'X') {
         }
     }
 
+    if (aiMoves.length === 1) {
+        const availableSides = sides.filter(i => board[i] === null);
+        if (availableSides.length > 0) {
+            return availableSides[Math.floor(Math.random() * availableSides.length)];
+        }
+    }
 
     // 3. Вземи ъгъл
     const corners = [0, 2, 6, 8];
