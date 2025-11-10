@@ -8,9 +8,9 @@ export default function Game() {
     const [xIsNext, setXIsNext] = useState(true);
     const [history, setHistory] = useState([Array(9).fill(null)]);
     const [currentMove, setCurrentMove] = useState(0);
-    const [playerCount, setPlayerCount] = useState(2);
+    const [playerCount, setPlayerCount] = useState(1);
     const [starter, setStarter] = useState('X');
-    const [difficulty, setDifficulty] = useState('easy');
+    const [difficulty, setDifficulty] = useState('hard');
     const currentGameValue = history[currentMove];
 
     const onInitialStartHandler = (e, playerCount, starter) => {
