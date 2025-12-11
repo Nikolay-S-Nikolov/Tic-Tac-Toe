@@ -1,3 +1,43 @@
-.winer{
+@starting-style {
+    .ticBtn {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
+
+.ticBtn {
+    flex: 1 1 30%;
+    font-size: 4.5rem;
+    aspect-ratio: 1;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ticBtn:hover {
+    transform: scale(1.01) translateY(-1px);
+    /* 3D lift */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.ticBtn:active {
+    transform: scale(0.98);
+    /* Press down */
+}
+
+@media (max-width:650px) {
+    .ticBtn {
+        font-size: 2.5rem;
+    }
+
+}
+
+
+.winer {
     border: 3px solid gold !important;
 }
