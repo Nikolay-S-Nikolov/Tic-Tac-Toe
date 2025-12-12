@@ -2,16 +2,11 @@ import { useState } from "react";
 import PCStrength from "./PCStrength.jsx";
 
 export default function GameSetup({    
-    onSubmitHandler
+    onSubmitHandler,
+    startingSetup
 }) {
     const [showPCStrength, setShowPCStrength] = useState(false);
-    const [formData, setFormData] = useState(
-        {
-            playerCount: 1,
-            starter: 'X',
-            difficulty: 'hard'
-        }
-    );
+    const [formData, setFormData] = useState(startingSetup);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -28,7 +23,7 @@ export default function GameSetup({
 
     function handlePlayerCountChange(e) {
         setFormData({ ...formData, playerCount: parseInt(e.target.value, 10) });
-        setShowPCStrength(formData.playerCount === 2 ? true : false);
+        setShowPCStrength(formData.playerCount === 2);
     }
 
     return (

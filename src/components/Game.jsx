@@ -8,14 +8,18 @@ export default function Game() {
     const [xIsNext, setXIsNext] = useState(true);
     const [history, setHistory] = useState([Array(9).fill(null)]);
     const [currentMove, setCurrentMove] = useState(0);
-    const [startingSetup, setStartingSetup] = useState(null);
+    const [startingSetup, setStartingSetup] = useState({
+        playerCount: 1,
+        starter: 'X',
+        difficulty: 'hard'
+    });
     const currentGameValue = history[currentMove];
 
 
     const onInitialStartHandler = (initialState) => {
         setStartingSetup(initialState);
         setShowSetup(false);
-        startingSetup?.starter === 'X' ? setXIsNext(true) : setXIsNext(false)
+        setXIsNext(initialState.starter === "X");
     }
 
     const onPlayHandler = (nextSquareValues) => {
@@ -39,7 +43,7 @@ export default function Game() {
 
     return (
         <>
-            {showSetup && <GameSetup onSubmitHandler={onInitialStartHandler} />}
+            {showSetup && <GameSetup onSubmitHandler={onInitialStartHandler} startingSetup={startingSetup} />}
 
             {!showSetup && <div className="main-container">
                 <Board
