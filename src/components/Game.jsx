@@ -8,15 +8,14 @@ export default function Game() {
     const [xIsNext, setXIsNext] = useState(true);
     const [history, setHistory] = useState([Array(9).fill(null)]);
     const [currentMove, setCurrentMove] = useState(0);
-    const [playerCount, setPlayerCount] = useState(1);
-    const [starter, setStarter] = useState('X');
-    const [difficulty, setDifficulty] = useState('hard');
+    const [startingSetup, setStartingSetup] = useState(null);
     const currentGameValue = history[currentMove];
 
-    const onInitialStartHandler = (e, playerCount, starter) => {
+
+    const onInitialStartHandler = (initialState) => {
+        setStartingSetup(initialState);
         setShowSetup(false);
-        e.preventDefault();
-        starter === 'X' ? setXIsNext(true) : setXIsNext(false)
+        startingSetup?.starter === 'X' ? setXIsNext(true) : setXIsNext(false)
     }
 
     const onPlayHandler = (nextSquareValues) => {
@@ -35,29 +34,22 @@ export default function Game() {
 
     const jumpToMove = (idx) => {
         setCurrentMove(idx);
-        starter === 'X' ? setXIsNext(idx % 2 === 0) : setXIsNext(!(idx % 2 === 0));
+        startingSetup.starter === 'X' ? setXIsNext(idx % 2 === 0) : setXIsNext(!(idx % 2 === 0));
     }
 
     return (
         <>
-            {showSetup && <GameSetup
-                onStartHandler={onInitialStartHandler}
-                setPlayerCount={setPlayerCount}
-                setStarter={setStarter}
-                starter={starter}
-                playerCount={playerCount}
-                difficulty={difficulty}
-                setDifficulty={setDifficulty}
-            />}
+            {showSetup && <GameSetup onSubmitHandler={onInitialStartHandler} />}
+
             {!showSetup && <div className="main-container">
                 <Board
                     xIsNext={xIsNext}
                     squareValues={currentGameValue}
                     onPlay={onPlayHandler}
                     onRestartHandler={onRestart}
-                    playerCount={playerCount}
-                    starter={starter}
-                    difficulty={difficulty}
+                    playerCount={startingSetup.playerCount}
+                    starter={startingSetup.starter}
+                    difficulty={startingSetup.difficulty}
                 />
                 <GameInfo moves={history} jumpToMoveHandler={jumpToMove} />
             </div>}

@@ -3,8 +3,8 @@ export default function PCStrength({
     difficulty,
     setDifficulty
 }) {
-    function onDiffvultyChangeHandler(e) {
-        setDifficulty(e.target.value);
+    function onDifficultyChangeHandler(e) {
+        setDifficulty(e, 'difficulty');
     }
 
     return (
@@ -19,7 +19,7 @@ export default function PCStrength({
                         name="difficulty"
                         value="easy"
                         checked={difficulty === "easy"}
-                        onChange={onDiffvultyChangeHandler}
+                        onChange={onDifficultyChangeHandler}
                     />
                     Easy (Random Moves)
                 </label>
@@ -30,7 +30,7 @@ export default function PCStrength({
                         name="difficulty"
                         value="hard"
                         checked={difficulty === "hard"}
-                        onChange={onDiffvultyChangeHandler}
+                        onChange={onDifficultyChangeHandler}
                     />
                     Hard (Smart Moves)
                 </label>

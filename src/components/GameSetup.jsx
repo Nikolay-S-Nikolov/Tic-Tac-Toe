@@ -1,40 +1,46 @@
 import { useState } from "react";
 import PCStrength from "./PCStrength.jsx";
 
-export default function GameSetup({
-    onStartHandler,
-    setPlayerCount,
-    playerCount,
-    setStarter,
-    starter,
-    difficulty,
-    setDifficulty
+export default function GameSetup({    
+    onSubmitHandler
 }) {
     const [showPCStrength, setShowPCStrength] = useState(false);
+    const [formData, setFormData] = useState(
+        {
+            playerCount: 1,
+            starter: 'X',
+            difficulty: 'hard'
+        }
+    );
 
-    function onSetStarterChoice(e) {
-        setStarter(e.target.value);
+    function handleSubmit(e) {
+        e.preventDefault();
+        onSubmitHandler(formData);
+    }
+
+    function handleChoiceChange(e, fieldName) {
+        setFormData({ ...formData, [fieldName]: e.target.value });
     }
 
     function onCloseDifficultyHandler() {
         setShowPCStrength(false)
     }
 
+    function handlePlayerCountChange(e) {
+        setFormData({ ...formData, playerCount: parseInt(e.target.value, 10) });
+        setShowPCStrength(formData.playerCount === 2 ? true : false);
+    }
+
     return (
         <div className="setup-container">
-            <form className="initial-setup" onSubmit={(e) => {
-                onStartHandler(e, playerCount, starter);
-            }} >
+            <form className="initial-setup" onSubmit={handleSubmit} >
                 <div className="player-count">
                     <label htmlFor="players">Number of Players:</label>
                     <select
                         id="players"
                         name="players"
-                        value={playerCount}
-                        onChange={(e) => {
-                            setPlayerCount(Number(e.target.value));
-                            setShowPCStrength(playerCount === 2 ? true : false);
-                        }}
+                        value={formData.playerCount}
+                        onChange={handlePlayerCountChange}
                     >
                         <option value="1">1 Player (vs Computer)</option>
                         <option value="2">2 Players</option>
@@ -48,8 +54,8 @@ export default function GameSetup({
                             type="radio"
                             name="starter"
                             value="X"
-                            checked={starter === "X"}
-                            onChange={onSetStarterChoice}
+                            checked={formData.starter === "X"}
+                            onChange={(e) => {handleChoiceChange(e, 'starter')}}
                         />
                         Player X
                     </label>
@@ -58,8 +64,8 @@ export default function GameSetup({
                             type="radio"
                             name="starter"
                             value="O"
-                            checked={starter === "O"}
-                            onChange={onSetStarterChoice}
+                            checked={formData.starter === "O"}
+                            onChange={(e) => {handleChoiceChange(e, 'starter')}}
                         />
                         Player O
                     </label>
@@ -68,8 +74,8 @@ export default function GameSetup({
             </form>
             {showPCStrength && <PCStrength
                 onClose={onCloseDifficultyHandler}
-                difficulty={difficulty}
-                setDifficulty={setDifficulty}
+                difficulty={formData.difficulty}
+                setDifficulty={handleChoiceChange}
             />}
         </div>
     );
