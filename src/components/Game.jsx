@@ -1,61 +1,57 @@
-import { useState } from "react";
+import { useReducer } from "react";
+
 import Board from "./Board.jsx";
 import GameInfo from "./GameInfo.jsx";
 import GameSetup from "./GameSetup.jsx";
 
-export default function Game() {
-    const [showSetup, setShowSetup] = useState(true);
-    const [xIsNext, setXIsNext] = useState(true);
-    const [history, setHistory] = useState([Array(9).fill(null)]);
-    const [currentMove, setCurrentMove] = useState(0);
-    const [startingSetup, setStartingSetup] = useState({
-        playerCount: 1,
-        starter: 'X',
-        difficulty: 'hard'
-    });
-    const currentGameValue = history[currentMove];
+import gameReducer from "../reducers/gameReducer.js"
 
+export default function Game() {
+    const [ state, dispatch ] = useReducer(gameReducer, {
+        showSetup: true,
+        xIsNext: true,
+        history: [Array(9).fill(null)],
+        currentMove: 0,
+        startingSetup: {
+            playerCount: 1,
+            starter: "X",
+            difficulty: "hard",
+        },
+    })
+
+    const currentGameValue = state.history[state.currentMove];
 
     const onInitialStartHandler = (initialState) => {
-        setStartingSetup(initialState);
-        setShowSetup(false);
-        setXIsNext(initialState.starter === "X");
+        dispatch({ type: "START_GAME", payload: initialState })
     }
 
     const onPlayHandler = (nextSquareValues) => {
-        const updateHistory = [...history.slice(0, currentMove + 1), nextSquareValues];
-        setHistory(updateHistory);
-        setXIsNext(next => !next);
-        setCurrentMove(updateHistory.length - 1);
+        dispatch({ type: 'PLAY', payload: nextSquareValues });
     };
 
     const onRestart = () => {
-        setHistory([Array(9).fill(null)]);
-        setCurrentMove(0);
-        setXIsNext(true);
-        setShowSetup(true);
+        dispatch({ type: 'RESTART' })
     }
 
     const jumpToMove = (idx) => {
-        setCurrentMove(idx);
-        startingSetup.starter === 'X' ? setXIsNext(idx % 2 === 0) : setXIsNext(!(idx % 2 === 0));
+        dispatch({ type: 'JUMP_TO_MOVE', payload: idx })
     }
 
     return (
         <>
-            {showSetup && <GameSetup onSubmitHandler={onInitialStartHandler} startingSetup={startingSetup} />}
+            {state.showSetup && <GameSetup onSubmitHandler={onInitialStartHandler} startingSetup={state.startingSetup} />}
 
-            {!showSetup && <div className="main-container">
+            {!state.showSetup && <div className="main-container">
                 <Board
-                    xIsNext={xIsNext}
+                    xIsNext={state.xIsNext}
                     squareValues={currentGameValue}
                     onPlay={onPlayHandler}
                     onRestartHandler={onRestart}
-                    playerCount={startingSetup.playerCount}
-                    starter={startingSetup.starter}
-                    difficulty={startingSetup.difficulty}
+                    playerCount={state.startingSetup.playerCount}
+                    starter={state.startingSetup.starter}
+                    difficulty={state.startingSetup.difficulty}
                 />
-                <GameInfo moves={history} jumpToMoveHandler={jumpToMove} />
+                <GameInfo moves={state.history} jumpToMoveHandler={jumpToMove} />
             </div>}
         </>
     )
